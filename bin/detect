@@ -1,0 +1,5 @@
+#!/bin/bash
+# bin/detect <build-dir>
+
+echo "Config buildpack"
+exit 0

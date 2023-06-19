@@ -1,0 +1,23 @@
+#!/bin/bash
+# bin/compile <build-dir> <cache-dir> <env-dir>
+
+BUILD_DIR=${1:-}
+ENV_DIR=${3:-}
+
+
+if [ -f $ENV_DIR/TARGET_FILE_NAME ]; then
+	TARGET_FILE_NAME=`cat $ENV_DIR/TARGET_FILE_NAME`
+	if [ -f $ENV_DIR/TARGET_FILE_BASE64 ]; then
+		TARGET_FILE_BASE64=`cat $ENV_DIR/TARGET_FILE_BASE64`
+        echo "-----> Creating $TARGET_FILE_NAME ..."
+        echo -e $TARGET_FILE_BASE64
+        echo -e $TARGET_FILE_BASE64 | base64 -d > $BUILD_DIR/$TARGET_FILE_NAME
+        echo "       Done."
+		exit 0
+	fi
+    echo "TARGET_FILE_BASE64 is undefined"
+    exit 1
+fi
+
+echo "TARGET_FILE_NAME is undefined"
+exit 1
